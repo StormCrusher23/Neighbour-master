@@ -40,42 +40,9 @@ const Data = [
   {
     title: `Electricity`,
     time: `4`,
-    disc: `oogas afiahsb IAGFiadsf asdfblv salfkhbai akshkfbaiybgwiaub`,
+    disc: `Low voltage since yesterday's thunderstorm`,
   },
-  {
-    title: `Water`,
-    time: `5`,
-    disc: `fugiat nulla doloribus recusandae eaque est corporis incidunt. Modi!`,
-  },
-  {
-    title: `Gas`,
-    time: `7`,
-    disc: `Lorem ipsum, dolor sit amet consectetur adipisicing elit. Tempora aut earum,`,
-  },
-  {
-    title: `Ceiling`,
-    time: `8`,
-    disc: `rerum provident amet beatae quia voluptate, culpa obcaecati ut quaerat,`,
-  },
-  {
-    title: `Septic tank`,
-    time: `14`,
-    disc: `delectus sequi consequuntur inventore aperiam repudiandae qui omnis doloremque.`,
-  },{
-    title: `Electricity`,
-    time: `2`,
-    disc: `oogas afiahsb IAGFiadsf asdfblv salfkhbai akshkfbaiybgwiaub`,
-  },
-  {
-    title: `Water`,
-    time: `6`,
-    disc: `fugiat nulla doloribus recusandae eaque est corporis incidunt. Modi!`,
-  },
-  {
-    title: `Gas`,
-    time: `11`,
-    disc: `Lorem ipsum, dolor sit amet consectetur adipisicing elit. Tempora aut earum,`,
-  },
+  
 ];
 
 const firebaseConfig = {
@@ -182,7 +149,7 @@ const sendIssue = () => {
         style={styles.input}
         />
       <TextInput
-        placeholder="Discription"
+        placeholder="Description"
         onChangeText={text => setPassword(text)}
         style={styles.input}
         secureTextEntry
