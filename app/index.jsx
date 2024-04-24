@@ -1,7 +1,13 @@
-import React from 'react';
+import React, {useState ,useEffect} from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { SafeAreaView, StyleSheet, TouchableOpacity, KeyboardAvoidingView, TextInput, FlatList, Text, View } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import {createNativeStackNavigator} from "@react-navigation/native-stack";
+import { initializeApp } from '@firebase/app';
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/auth';
+import { useNavigation } from '@react-navigation/core'
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -72,6 +78,74 @@ const Data = [
   },
 ];
 
+const firebaseConfig = {
+  apiKey: 'AIzaSyA0zu28tbv2ShBRkaNmqbH5xU41SNNSkC0',
+  authDomain: 'fir-auth-1f5c0.firebaseapp.com',
+  projectId: 'fir-auth-1f5c0',
+  storageBucket: 'fir-auth-1f5c0.appspot.com',
+  messagingSenderId: '918131323751',
+  appId: '1:918131323751:web:781bd31b9dba658ec0f5c2',
+};
+
+firebase.initializeApp(firebaseConfig);
+
+
+const Login = () => {
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+    
+const navigation = useNavigation()
+    useEffect(() => {
+        firebase.auth().onAuthStateChanged(user => {
+            if (user) {
+                navigation.replace("Panel")
+            }
+        })   
+    })
+
+    const handleLogin = () => {
+        firebase.auth()
+        .signInWithEmailAndPassword(email, password)
+        .then(userCredentials => {
+            const user = userCredentials.user;
+            console.log('Logged in with : ', user.email);
+        })
+        .catch(error => alert(error.message))
+    }
+
+    return (
+        <KeyboardAvoidingView
+        style={styles.container}
+        behavior="padding"
+      >
+        <View style={styles.inputContainer}>
+          <TextInput
+            placeholder="Email"
+            value={email}
+            onChangeText={text => setEmail(text)}
+            style={styles.input}
+          />
+          <TextInput
+            placeholder="Password"
+            value={password}
+            onChangeText={text => setPassword(text)}
+            style={styles.input}
+            secureTextEntry
+          />
+        </View>
+  
+        <View style={styles.buttonContainer}>
+          <TouchableOpacity
+            onPress={handleLogin}
+            style={styles.button}
+          >
+            <Text style={styles.buttonText}>Login</Text>
+          </TouchableOpacity>
+        </View>
+      </KeyboardAvoidingView>
+    )
+  }
+
 const Card = ({ item }) => {
   return(
     <View style={styles.card}>
@@ -122,8 +196,6 @@ const sendIssue = () => {
 )
 }
 
-
-
 const DrawerNavigator = () => {
   return (
     <Drawer.Navigator initialRouteName='Client'>
@@ -135,13 +207,18 @@ const DrawerNavigator = () => {
 
 export default function App() {
   return (
-    <Stack.Navigator>
+    <NavigationContainer independent={true}>
+    <Stack.Navigator initialRouteName='login' >
       <Stack.Screen
         name='App'
         component={DrawerNavigator}
         options={{ headerShown: false }}
       />
+      <Stack.Screen name='login'
+      component={Login}
+      options={{headerShown: false}}/>
     </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 
