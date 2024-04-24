@@ -13,32 +13,32 @@ const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 const Data = [
   {
-    title: `Elctricity`,
+    title: `Electricity`,
     time: `2`,
-    disc: `oogas afiahsb IAGFiadsf asdfblv salfkhbai akshkfbaiybgwiaub`,
+    disc: `Blackout at 2nd floor since 1AM`,
   },
   {
     title: `Water`,
     time: `6`,
-    disc: `fugiat nulla doloribus recusandae eaque est corporis incidunt. Modi!`,
+    disc: `No supply since yesterday`
   },
   {
     title: `Gas`,
     time: `11`,
-    disc: `Lorem ipsum, dolor sit amet consectetur adipisicing elit. Tempora aut earum,`,
+    disc: `Gas pipeline leaking nearby weste gate`,
   },
   {
-    title: `Celling`,
+    title: `Ceiling`,
     time: `3`,
-    disc: `rerum provident amet beatae quia voluptate, culpa obcaecati ut quaerat,`,
+    disc: `Noo maintainance at room 26, Ceiling cracked since March 2024`
   },
   {
     title: `Septic tank`,
     time: `13`,
-    disc: `delectus sequi consequuntur inventore aperiam repudiandae qui omnis doloremque.`,
+    disc: `Septic tank overflowing, Needs cleaning`
   },
   {
-    title: `Elctricity`,
+    title: `Electricity`,
     time: `4`,
     disc: `oogas afiahsb IAGFiadsf asdfblv salfkhbai akshkfbaiybgwiaub`,
   },
@@ -53,7 +53,7 @@ const Data = [
     disc: `Lorem ipsum, dolor sit amet consectetur adipisicing elit. Tempora aut earum,`,
   },
   {
-    title: `Celling`,
+    title: `Ceiling`,
     time: `8`,
     disc: `rerum provident amet beatae quia voluptate, culpa obcaecati ut quaerat,`,
   },
@@ -62,7 +62,7 @@ const Data = [
     time: `14`,
     disc: `delectus sequi consequuntur inventore aperiam repudiandae qui omnis doloremque.`,
   },{
-    title: `Elctricity`,
+    title: `Electricity`,
     time: `2`,
     disc: `oogas afiahsb IAGFiadsf asdfblv salfkhbai akshkfbaiybgwiaub`,
   },
@@ -118,6 +118,10 @@ const navigation = useNavigation()
         style={styles.container}
         behavior="padding"
       >
+     <View>
+        <Text style={styles.welcome}>Welcome Back!</Text>
+      </View>
+    
         <View style={styles.inputContainer}>
           <TextInput
             placeholder="Email"
@@ -135,7 +139,7 @@ const navigation = useNavigation()
         </View>
   
         <View style={styles.buttonContainer}>
-          <TouchableOpacity
+          <TouchableOpacity 
             onPress={handleLogin}
             style={styles.button}
           >
@@ -150,8 +154,8 @@ const Card = ({ item }) => {
   return(
     <View style={styles.card}>
         <Text style={styles.title}>{item.title}</Text>
-        <Text style={styles.disc}>{item.disc}</Text>
-        <Text style={styles.time}>{item.time}</Text>
+        <Text style={styles.disc}>- {item.disc}</Text>
+        <Text style={styles.time}>Estd : {item.time} Hours</Text>
     </View> 
   )
 }
@@ -171,7 +175,7 @@ const sendIssue = () => {
     style={styles.container}
     behavior="padding"
     >
-    <View style={styles.inputContainer}>
+     <View style={styles.inputContainer}>
       <TextInput
         placeholder="Title"
         onChangeText={text => setEmail(text)}
@@ -208,7 +212,7 @@ const DrawerNavigator = () => {
 export default function App() {
   return (
     <NavigationContainer independent={true}>
-    <Stack.Navigator initialRouteName='login' >
+    <Stack.Navigator initialRouteName='App' >
       <Stack.Screen
         name='App'
         component={DrawerNavigator}
@@ -233,9 +237,10 @@ const styles = StyleSheet.create({
       padding: 10,
       paddingLeft: 20,
       borderRadius: 20,
-      backgroundColor: '#419dff',
+      backgroundColor: 'lightgray',
   },
   title:{
+    paddingBottom : 5,
     fontSize: 25,
   },
   disc:{
@@ -243,7 +248,10 @@ const styles = StyleSheet.create({
     fontSize: 15,
   },
   time:{
-    fontSize: 20,
+    textAlign: 'right',
+    color: 'gray',
+    fontSize: 15,
+    paddingTop : 5,
   },
   inputContainer: {
     width: '80%'
@@ -260,6 +268,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: 40,
+  },
+  welcome:{ 
+    marginBottom: 20,
+    fontSize: 42,
   },
   button: {
     backgroundColor: '#419dff',
